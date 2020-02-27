@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Row from './Row';
+import Modal from './Modal';
 
 class Table extends React.Component {
   constructor(props) {
@@ -10,21 +11,40 @@ class Table extends React.Component {
         {
           id: 1,
           name: "Jan Kowalski",
-          address: "ul. Testowa 1, Pruszcz Gdański"
+          address: "ul. Testowa 1, Pruszcz Gdański",
+
         },
-        { id: 2, name: "Andrzej Nowak", address: "ul. Programistów 5 Gdańsk" },
-        { id: 3, name: "Piotr Piotrowski", address: "ul. Wiejska 1, Warszawa" }
+        {
+          id: 2, name: "Andrzej Nowak", address: "ul. Programistów 5 Gdańsk",
+
+        },
+        {
+          id: 3, name: "Piotr Piotrowski", address: "ul. Wiejska 1, Warszawa",
+
+        }
+
       ],
       name: '',
       address: '',
       counter: 4,
-      search: ''
+      search: '',
+      show: false
 
     };
 
     this.compareBy.bind(this);
     this.sortBy.bind(this);
   }
+
+  showModal = (/*id*/) => {
+    this.setState({ show: true });
+    // console.log(id);
+
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
 
   compareBy(key) {
     return function (a, b) {
@@ -36,8 +56,8 @@ class Table extends React.Component {
 
   sortBy(key) {
     let arrayCopy = [...this.state.data];
-    arrayCopy.sort(this.compareBy(key));
-    this.setState({ data: arrayCopy });
+    const newArray = arrayCopy.sort(this.compareBy(key));
+    this.setState({ data: newArray });
   }
 
   handleText = (e) => {
@@ -58,26 +78,30 @@ class Table extends React.Component {
     })
   }
 
-  addWorker = (name, address) => {
+  addPerson = (name, address) => {
     // console.log("dodany obiekt");
-    const worker = {
+    const person = {
       id: this.state.counter,
       name,
       address
     };
     this.setState({
-      data: [...this.state.data, worker],
+      data: [...this.state.data, person],
       counter: this.state.counter + 1
     })
+
+    return true;
   }
+
+
 
   handleClick = () => {
     console.log("dodaj");
 
     const { name, address } = this.state;
     if (name && address) {
-      const worker = this.addWorker(name, address);
-      if (worker) {
+      const person = this.addPerson(name, address);
+      if (person) {
         this.setState({
           name: '',
           address: '',
@@ -89,36 +113,46 @@ class Table extends React.Component {
     }
   }
 
+
   render() {
 
-    let filteredArr = this.state.data.filter((worker) => {
-      return worker.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+    const filteredArr = this.state.data.filter((person) => {
+      return person.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
     });
 
-    const rows = filteredArr.map(rowData => <Row {...rowData} />);
+    const rows = filteredArr.map(rowData => <Row {...rowData} key={rowData.id} />);
+
 
 
     return (
 
-      <div className="table">
-
-        <input type="text" placeholder="Wyszukaj pracownika" value={this.state.search} onChange={this.handleSearch} />
+      <div className="table-app">
 
 
-        <tr className="header">
-          <th >Id</th>
-          <th >Nazwa klienta</th>
-          <th >Adres</th>
-        </tr>
+        <div className="search-wrapper"><input type="text" placeholder="Wyszukaj klienta" value={this.state.search} onChange={this.handleSearch} /></div>
 
-        <div className="body">{rows}</div>
+        <table className="table-wrapper">
+          <thead>
+            <tr className="header">
+              <th /*onClick={this.sortBy('id')}*/>Id</th>
+              <th /*onClick={this.sortBy('name')}*/>Nazwa klienta</th>
+              <th /*onClick={this.sortBy('address')}*/>Adres</th>
+            </tr>
+          </thead>
+          <tbody className="body">{rows}</tbody>
+        </table>
 
-        <div className="addRow">
+        <div className="add-wrapper">
           <input type="text" placeholder="Podaj imię i nazwisko" value={this.state.name} onChange={this.handleText} />
           <input type="text" placeholder="Podaj adres" value={this.state.address} onChange={this.handleAddress} />
-
-          <button onClick={this.handleClick}>Dodaj pracownika</button>
+          <button className="btn" onClick={this.handleClick}>Dodaj Klienta</button>
         </div>
+
+
+        <Modal show={this.state.show} handleClose={this.hideModal}>
+          <p>Modal</p>
+        </Modal>
+
 
       </div>
     );
