@@ -149,8 +149,8 @@ class Table extends React.Component {
         </div>
 
 
-        <Modal show={this.state.show} handleClose={this.hideModal}>
-          <p>Modal</p>
+        <Modal show={this.state.show} handleClose={this.hideModal} showModal={this.showModal}>
+
         </Modal>
 
 
