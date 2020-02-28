@@ -165,9 +165,11 @@ div.sum {
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
+  text-align:center;
+  align-items: center;
   justify-content: center;
-  text-align: center;
   overflow: hidden;
+  padding: 10px;
 }
 .inputChangeName{
   display: block;
@@ -209,21 +211,25 @@ div.sum {
   tr td:hover {
     background-color: #429cb3;
   }
-  input{
+  input.inputChangeName{
     width: 94%;
     margin: 15px auto;
     padding: 0;
     display: block;
     overflow: hidden;
+    float: none;
+    word-wrap: break-word;
 
 }
   .submitBtn {
     width: 94%;
-    margin: 10px;
+    margin: 15px auto;
+    float: inherit;
   }
   .closeBtn {
     width: 94%;
-    margin: 10px;
+    margin: 15px auto;
+    float: inherit;
   }
 
 }
