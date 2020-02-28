@@ -57,6 +57,26 @@ button {
   width: 100%;
   text-transform: uppercase;
 }
+.submitBtn {
+  background-color: #00b5e2;
+  margin: 10px;
+  margin-left:10px;
+  padding: 0;
+  width: 45%;
+  text-transform: uppercase;
+  float: left;
+
+}
+.closeBtn {
+  float: right;
+  background-color: #e20000;
+  margin: 10px;
+  margin-right:10px;
+  padding: 0;
+  width: 45%;
+  text-transform: uppercase;
+}
+
 .btn:hover {
   color: #000000;
   box-shadow: 0 0 4px rgb(255, 255, 255);
@@ -136,12 +156,19 @@ div.sum {
 
 .modal-main {
   position:fixed;
-  background: white;
-  width: 80%;
+  background: rgba(255, 255, 255, 0.822);
+  width: 50%;
   height: auto;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.inputChangeName{
+  display: block;
+  margin-left: 10px;
 }
 
 .display-block {
@@ -179,4 +206,21 @@ div.sum {
   tr td:hover {
     background-color: #429cb3;
   }
+  input{
+    width: 94%;
+    margin: 15px auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+
+}
+  .submitBtn {
+    width: 94%;
+    margin: 10px;
+  }
+  .closeBtn {
+    width: 94%;
+    margin: 10px;
+  }
+
 }
